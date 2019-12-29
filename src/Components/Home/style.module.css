@@ -1,0 +1,38 @@
+.bg_image {
+  width: 100%;
+  height: 100;
+  background: black;
+  padding: 0;
+}
+
+.image_overlay {
+  position: absolute;
+  color: #f5f6f7;
+  top: 50%;
+  bottom: 50%;
+  margin: -25% 40%;
+}
+
+.cart_container {
+  margin: 8px 8px;
+  background: #fff;
+  padding: 10px;
+  overflow: auto;
+  height: 96vh;
+}
+
+.cart_image_div {
+  height: 200px;
+  width: 200px;
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+}
+
+.cart_footer_price {
+  height: 40;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+}
