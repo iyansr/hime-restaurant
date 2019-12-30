@@ -59,7 +59,7 @@ const Home = () => {
 	)
 
 	return (
-		<Row>
+		<Row style={{ width: '100%' }}>
 			<Col span={16}>
 				<CheckoutModal />
 				<FoodModal />
@@ -68,7 +68,7 @@ const Home = () => {
 				</Header>
 				<div
 					style={{
-						margin: '8px 8px 10px 20px',
+						margin: '8px 8px 10px 26px',
 					}}>
 					<Dropdown overlay={menu} trigger={['click']}>
 						<Button>
@@ -81,7 +81,7 @@ const Home = () => {
 						onSearch={value =>
 							setSearchTerm(prev => ({ ...prev, search: value }))
 						}
-						style={{ width: 200, marginLeft: 20 }}
+						style={{ width: 200, marginLeft: 22 }}
 					/>
 					<Radio.Group
 						onChange={onChange}
@@ -98,7 +98,7 @@ const Home = () => {
 						flexDirection: 'row',
 					}}>
 					{searchTerm.category && (
-						<Button type='dashed'>
+						<Button type='dashed' style={{ marginLeft: 18 }}>
 							{searchTerm.category}{' '}
 							<Icon type='close' style={{ fontSize: 10 }} />
 						</Button>

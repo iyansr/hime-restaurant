@@ -16,11 +16,11 @@ const FoodState = props => {
 
 	const [state, dispatch] = useReducer(FoodReducer, initialState)
 
-	const getFood = async () => {
+	const getFood = async page => {
 		setLoading()
 		try {
 			const response = await axios.get(
-				`${process.env.REACT_APP_BASE_API_URL}/food?limit=6`
+				`${process.env.REACT_APP_BASE_API_URL}/food?limit=6&page=${page || 1}`
 			)
 			dispatch({
 				type: 'GET_FOOD',

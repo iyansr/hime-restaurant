@@ -50,7 +50,6 @@ const FoodModal = () => {
 			console.log(pair[0] + ', ' + pair[1])
 		}
 		addFood(formData)
-		console.log(errorMessage)
 	}
 
 	const props = {

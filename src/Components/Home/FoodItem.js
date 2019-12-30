@@ -26,7 +26,7 @@ const FoodItem = () => {
 	}, [])
 
 	return (
-		<Row style={{ marginLeft: 10 }}>
+		<Row style={{ marginLeft: 10 }} gutter={16}>
 			{foods.map(d => (
 				<Col span={8} key={d.id}>
 					<Card
