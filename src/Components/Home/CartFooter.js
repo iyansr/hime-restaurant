@@ -1,6 +1,9 @@
 import React, { useContext } from 'react'
 import { Layout, Button } from 'antd'
+
+import CheckOutContext from '../../Context/Checkout/checkOutContext'
 import FoodContext from '../../Context/Food/foodContext'
+
 import styles from './style.module.css'
 import convertToRupiah from '../../utils/rupiah'
 
@@ -8,7 +11,11 @@ const { Footer } = Layout
 
 const CartFooter = () => {
 	const foodContext = useContext(FoodContext)
+	const checkOutContext = useContext(CheckOutContext)
+
 	const { removeCart, cart } = foodContext
+	const { showModal } = checkOutContext
+
 	const total = cart.reduce(
 		(prev, next) => prev + next.price * next.quantity,
 		0
@@ -23,10 +30,11 @@ const CartFooter = () => {
 			}}>
 			<div className={styles.cart_footer_price}>
 				<h1>Total</h1>
-				<h1>{convertToRupiah(total)}</h1>
+				<h1>{convertToRupiah(total)}*</h1>
 			</div>
 			<p>*belum termasuk ppn</p>
 			<Button
+				onClick={showModal}
 				type={cart.length <= 0 ? 'dashed' : 'primary'}
 				disabled={cart.length <= 0 ? true : false}
 				style={{ width: '100%', height: 40 }}>

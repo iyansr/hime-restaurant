@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Layout, Menu, Icon } from 'antd'
 import { NavLink } from 'react-router-dom'
+import FoodContext from '../../Context/Food/foodContext'
 
 const { Sider } = Layout
 
 const SideNav = () => {
+	const foodContext = useContext(FoodContext)
+
+	const { showFoodModal } = foodContext
+
 	const [collapsed, setCollapsed] = useState(true)
 	const onCollapse = collapsed => {
 		console.log(collapsed)
@@ -28,13 +33,13 @@ const SideNav = () => {
 
 				<Menu.Item key='2'>
 					<NavLink to='/history'>
-						<Icon type='desktop' />
-						<span>Option 2</span>
+						<Icon type='fund' />
+						<span>History</span>
 					</NavLink>
 				</Menu.Item>
-				<Menu.Item key='9'>
-					<Icon type='file' />
-					<span>File</span>
+				<Menu.Item key='9' onClick={showFoodModal}>
+					<Icon type='plus' />
+					<span>Add Food</span>
 				</Menu.Item>
 			</Menu>
 		</Sider>

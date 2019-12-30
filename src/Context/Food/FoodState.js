@@ -7,22 +7,44 @@ import axios from 'axios'
 const FoodState = props => {
 	const initialState = {
 		foods: foodData,
+		totalFood: 0,
 		cart: [],
-		loading: true,
+		loading: false,
+		foodModalVisible: false,
+		errorMessage: {},
 	}
 
 	const [state, dispatch] = useReducer(FoodReducer, initialState)
 
 	const getFood = async () => {
+		setLoading()
 		try {
-			const response = await axios.get(`http://localhost:9300/api/food?limit=6`)
+			const response = await axios.get(
+				`${process.env.REACT_APP_BASE_API_URL}/food?limit=6`
+			)
 			dispatch({
 				type: 'GET_FOOD',
-				payload: response.data.foods,
+				payload: response.data,
 			})
-			setLoading()
 		} catch (error) {
 			console.log(error)
+		}
+	}
+
+	const addFood = async formData => {
+		setLoading()
+		try {
+			await axios.post(`${process.env.REACT_APP_BASE_API_URL}/food`, formData)
+			dispatch({
+				type: 'ADD_FOOD',
+			})
+			getFood()
+			hideFoodModal()
+		} catch (error) {
+			dispatch({
+				type: 'FORM_FOOD_ERROR',
+				payload: error.response.data.message,
+			})
 		}
 	}
 
@@ -80,6 +102,16 @@ const FoodState = props => {
 	}
 
 	const setLoading = () => dispatch({ type: 'SET_LOADING' })
+	const showFoodModal = () => {
+		dispatch({
+			type: 'SHOW_FOOD_MODAL',
+		})
+	}
+	const hideFoodModal = () => {
+		dispatch({
+			type: 'HIDE_FOOD_MODAL',
+		})
+	}
 
 	return (
 		<FoodContext.Provider
@@ -87,12 +119,18 @@ const FoodState = props => {
 				foods: state.foods,
 				cart: state.cart,
 				loading: state.loading,
+				foodModalVisible: state.foodModalVisible,
+				errorMessage: state.errorMessage,
+				totalFood: state.totalFood,
 				addToCart,
 				removeCart,
 				addQty,
 				subtractQty,
 				changeQty,
 				getFood,
+				hideFoodModal,
+				showFoodModal,
+				addFood,
 			}}>
 			{props.children}
 		</FoodContext.Provider>

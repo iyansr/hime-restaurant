@@ -28,12 +28,34 @@ export default (state, action) => {
 		case 'GET_FOOD':
 			return {
 				...state,
-				foods: action.payload,
-				loading: true,
+				foods: action.payload.foods,
+				totalFood: action.payload.totalData,
+				loading: false,
 			}
 		case 'SET_LOADING':
 			return {
 				...state,
+				loading: true,
+			}
+		case 'SHOW_FOOD_MODAL':
+			return {
+				...state,
+				foodModalVisible: true,
+			}
+		case 'HIDE_FOOD_MODAL':
+			return {
+				...state,
+				foodModalVisible: false,
+			}
+		case 'ADD_FOOD':
+			return {
+				...state,
+				loading: false,
+			}
+		case 'FORM_FOOD_ERROR':
+			return {
+				...state,
+				errorMessage: action.payload,
 				loading: false,
 			}
 

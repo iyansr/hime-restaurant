@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Icon, Row, Col, Card, Skeleton } from 'antd'
 import ContentLoader from 'react-content-loader'
 import styles from './style.module.css'
@@ -22,10 +22,11 @@ const FoodItem = () => {
 
 	useEffect(() => {
 		getFood()
+		//eslint-disable-next-line
 	}, [])
 
 	return (
-		<Row>
+		<Row style={{ marginLeft: 10 }}>
 			{foods.map(d => (
 				<Col span={8} key={d.id}>
 					<Card
