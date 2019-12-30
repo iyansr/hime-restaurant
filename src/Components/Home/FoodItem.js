@@ -3,6 +3,7 @@ import { Icon, Row, Col, Card, Skeleton } from 'antd'
 import ContentLoader from 'react-content-loader'
 import styles from './style.module.css'
 import FoodContext from '../../Context/Food/foodContext'
+import convertToRupiah from '../../utils/rupiah'
 
 const MyLoader = () => (
 	<ContentLoader
@@ -63,7 +64,7 @@ const FoodItem = () => {
 						}>
 						<Skeleton loading={loading} paragraph={{ rows: 1 }} active>
 							<h4>{d.name}</h4>
-							<h3>Rp {d.price * d.quantity}</h3>
+							<h3>{convertToRupiah(d.price)}</h3>
 						</Skeleton>
 					</Card>
 				</Col>
