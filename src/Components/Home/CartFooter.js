@@ -26,11 +26,15 @@ const CartFooter = () => {
 				<h1>{convertToRupiah(total)}</h1>
 			</div>
 			<p>*belum termasuk ppn</p>
-			<Button type='primary' style={{ width: '100%', height: 40 }}>
+			<Button
+				type={cart.length <= 0 ? 'dashed' : 'primary'}
+				disabled={cart.length <= 0 ? true : false}
+				style={{ width: '100%', height: 40 }}>
 				Checkout
 			</Button>
 			<Button
-				type='danger'
+				type={cart.length <= 0 ? 'dashed' : 'danger'}
+				disabled={cart.length <= 0 ? true : false}
 				style={{ width: '100%', marginTop: 10, height: 40 }}
 				onClick={removeCart}>
 				Clear

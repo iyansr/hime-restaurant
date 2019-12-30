@@ -20,6 +20,23 @@ export default (state, action) => {
 				...state,
 				cart: action.payload,
 			}
+		case 'CHANGE_QTY':
+			return {
+				...state,
+				cart: action.payload,
+			}
+		case 'GET_FOOD':
+			return {
+				...state,
+				foods: action.payload,
+				loading: true,
+			}
+		case 'SET_LOADING':
+			return {
+				...state,
+				loading: false,
+			}
+
 		default:
 			return state
 	}

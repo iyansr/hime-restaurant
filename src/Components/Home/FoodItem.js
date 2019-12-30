@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Icon, Row, Col, Card, Skeleton } from 'antd'
 import ContentLoader from 'react-content-loader'
 import styles from './style.module.css'
@@ -17,10 +17,12 @@ const MyLoader = () => (
 )
 
 const FoodItem = () => {
-	const [loading] = useState(false)
-
 	const foodContext = useContext(FoodContext)
-	const { foods, cart, addToCart } = foodContext
+	const { foods, cart, addToCart, getFood, loading } = foodContext
+
+	useEffect(() => {
+		getFood()
+	}, [])
 
 	return (
 		<Row>

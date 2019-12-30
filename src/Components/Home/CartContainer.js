@@ -11,7 +11,7 @@ const { Header, Content } = Layout
 const CartContainer = () => {
 	const foodContext = useContext(FoodContext)
 
-	const { cart, addQty, subtractQty } = foodContext
+	const { cart, addQty, subtractQty, changeQty } = foodContext
 
 	return (
 		<Layout style={{ minHeight: '100vh', overflow: 'auto', height: '100vh' }}>
@@ -62,6 +62,7 @@ const CartContainer = () => {
 										max={100000}
 										style={{ width: 50 }}
 										value={d.quantity}
+										onChange={val => changeQty(index, val)}
 									/>
 									<Button onClick={() => addQty(index)}>
 										<Icon type='plus' />
