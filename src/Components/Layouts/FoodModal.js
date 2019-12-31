@@ -22,11 +22,16 @@ const FoodModal = () => {
 		errorMessage,
 	} = foodContext
 
+	const isBtnDisabled =
+		name.length > 3 && (imageUrl || fileList.length > 0) && category
+
 	const handleUpload = async () => {
 		console.log('IMAGE FILE')
 
 		const formData = new FormData()
-		formData.append('image', fileList[0])
+		if (fileList[0]) {
+			formData.append('image', fileList[0])
+		}
 		formData.append('name', name)
 		formData.append('price', price)
 		formData.append('category', category)
@@ -71,6 +76,11 @@ const FoodModal = () => {
 	const onChange = checked => {
 		console.log(`switch to ${checked}`)
 		setIsUrl(checked)
+		if (!checked) {
+			setFileList([])
+		} else {
+			setImageUrl('')
+		}
 	}
 
 	return (
@@ -85,6 +95,7 @@ const FoodModal = () => {
 						Cancel
 					</Button>,
 					<Button
+						disabled={!isBtnDisabled}
 						key='submit'
 						type='primary'
 						loading={loading}
@@ -109,6 +120,7 @@ const FoodModal = () => {
 						help={errorMessage.category && errorMessage.category}>
 						<Select
 							placeholder='Select a option and change input text above'
+							value={category}
 							onChange={e => {
 								setCategory(e)
 							}}>

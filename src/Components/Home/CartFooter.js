@@ -32,7 +32,7 @@ const CartFooter = () => {
 				<h1>Total</h1>
 				<h1>{convertToRupiah(total)}*</h1>
 			</div>
-			<p>*belum termasuk ppn</p>
+			<p>*Not Including VAT</p>
 			<Button
 				onClick={showModal}
 				type={cart.length <= 0 ? 'dashed' : 'primary'}

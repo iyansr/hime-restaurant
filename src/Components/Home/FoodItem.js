@@ -1,9 +1,18 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Icon, Row, Col, Card, Skeleton } from 'antd'
 import ContentLoader from 'react-content-loader'
 import styles from './style.module.css'
 import FoodContext from '../../Context/Food/foodContext'
 import convertToRupiah from '../../utils/rupiah'
+import randomstring from 'randomstring'
+
+// const checkOutID =
+// 	'#HI_FOOD' +
+// 	randomstring.generate({
+// 		length: 8,
+// 		// capitalization: 'numeric',
+// 		charset: 'numeric',
+// 	})
 
 const MyLoader = () => (
 	<ContentLoader
@@ -17,8 +26,28 @@ const MyLoader = () => (
 )
 
 const FoodItem = () => {
+	const [checkOutID, setCheckOutID] = useState(
+		'#HI_FOOD' +
+			randomstring.generate({
+				length: 8,
+				// capitalization: 'numeric',
+				charset: 'numeric',
+			})
+	)
+
 	const foodContext = useContext(FoodContext)
 	const { foods, cart, addToCart, getFood, loading } = foodContext
+
+	const changeCheckoutId = () => {
+		setCheckOutID(
+			'#HI_FOOD' +
+				randomstring.generate({
+					length: 8,
+					// capitalization: 'numeric',
+					charset: 'numeric',
+				})
+		)
+	}
 
 	useEffect(() => {
 		getFood()
@@ -41,7 +70,14 @@ const FoodItem = () => {
 									<img
 										onClick={() =>
 											!cart.filter(c => c.id === d.id).length > 0 &&
-											addToCart({ ...d, quantity: 1 })
+											addToCart({
+												id_transaction: checkOutID,
+												id: d.id,
+												name: d.name,
+												image: d.image,
+												price: d.price,
+												quantity: 1,
+											})
 										}
 										alt='example'
 										src={d.image}

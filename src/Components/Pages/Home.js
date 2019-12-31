@@ -13,8 +13,6 @@ import {
 } from 'antd'
 import FoodContainer from '../Home/FoodContainer'
 import CartContainer from '../Home/CartContainer'
-import CheckoutModal from '../Layouts/Modal'
-import FoodModal from '../Layouts/FoodModal'
 
 const { Header } = Layout
 const { Search } = Input
@@ -61,8 +59,6 @@ const Home = () => {
 	return (
 		<Row style={{ width: '100%' }}>
 			<Col span={16}>
-				<CheckoutModal />
-				<FoodModal />
 				<Header style={{ background: '#fff', paddingLeft: '50%' }}>
 					<h1 style={{ fontSize: 20 }}>Food Items</h1>
 				</Header>

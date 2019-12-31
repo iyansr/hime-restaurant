@@ -8,6 +8,8 @@ import CheckOutState from './Context/Checkout/CheckOutState'
 import Home from './Components/Pages/Home'
 import SideNav from './Components/Layouts/SideNav'
 import History from './Components/Pages/History'
+import CheckoutModal from './Components/Layouts/Modal'
+import FoodModal from './Components/Layouts/FoodModal'
 
 const App = () => {
 	return (
@@ -16,6 +18,9 @@ const App = () => {
 				<Router>
 					<Layout style={{ minHeight: '100vh' }}>
 						<SideNav />
+						<CheckoutModal />
+						<FoodModal />
+
 						<Switch>
 							<Route exact path='/' component={Home} />
 							<Route path='/history' component={History} />
