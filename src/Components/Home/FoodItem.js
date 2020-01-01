@@ -4,9 +4,7 @@ import ContentLoader from 'react-content-loader'
 import styles from './style.module.css'
 import FoodContext from '../../Context/Food/foodContext'
 import convertToRupiah from '../../utils/rupiah'
-import randomstring from 'randomstring'
-
-const date = new Date()
+import CheckoutContext from '../../Context/Checkout/checkOutContext'
 
 const MyLoader = () => (
 	<ContentLoader
@@ -20,28 +18,11 @@ const MyLoader = () => (
 )
 
 const FoodItem = () => {
-	const [checkOutID, setCheckOutID] = useState(
-		'#HI_FOOD' +
-			randomstring.generate({
-				length: 8,
-				charset: 'numeric',
-			}) +
-			date.getMilliseconds()
-	)
-
 	const foodContext = useContext(FoodContext)
-	const { foods, cart, addToCart, getFood, loading } = foodContext
+	const checkoutContext = useContext(CheckoutContext)
 
-	const changeCheckoutId = () => {
-		setCheckOutID(
-			'#HI_FOOD' +
-				randomstring.generate({
-					length: 8,
-					charset: 'numeric',
-				}) +
-				date.getMilliseconds()
-		)
-	}
+	const { foods, cart, addToCart, getFood, loading } = foodContext
+	const { changeCheckoutId, checkOutId } = checkoutContext
 
 	useEffect(() => {
 		getFood()
@@ -67,8 +48,11 @@ const FoodItem = () => {
 												? message.error('You should login ')
 												: !cart.filter(c => c.id === d.id).length > 0 &&
 												  addToCart({
-														id_transaction: checkOutID,
-														...d,
+														id_transaction: checkOutId,
+														id: d.id,
+														name: d.name,
+														image: d.image,
+														price: d.price,
 														quantity: 1,
 												  })
 										}

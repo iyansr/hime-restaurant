@@ -16,8 +16,8 @@ import LoginModal from './Components/Layouts/LoginModal'
 const App = () => {
 	return (
 		<UserState>
-			<FoodState>
-				<CheckOutState>
+			<CheckOutState>
+				<FoodState>
 					<Router>
 						<Layout style={{ minHeight: '100vh' }}>
 							<SideNav />
@@ -30,8 +30,8 @@ const App = () => {
 							</Switch>
 						</Layout>
 					</Router>
-				</CheckOutState>
-			</FoodState>
+				</FoodState>
+			</CheckOutState>
 		</UserState>
 	)
 }

@@ -14,7 +14,7 @@ const CartFooter = () => {
 	const checkOutContext = useContext(CheckOutContext)
 
 	const { removeCart, cart } = foodContext
-	const { showModal } = checkOutContext
+	const { showModal, setCheckoutItem } = checkOutContext
 
 	const total = cart.reduce(
 		(prev, next) => prev + next.price * next.quantity,
@@ -34,7 +34,10 @@ const CartFooter = () => {
 			</div>
 			<p>*Not Including VAT</p>
 			<Button
-				onClick={showModal}
+				onClick={() => {
+					showModal()
+					setCheckoutItem(cart)
+				}}
 				type={cart.length <= 0 ? 'dashed' : 'primary'}
 				disabled={cart.length <= 0 ? true : false}
 				style={{ width: '100%', height: 40 }}>

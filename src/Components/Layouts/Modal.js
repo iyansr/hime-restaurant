@@ -8,7 +8,7 @@ const CheckoutModal = () => {
 	const checkOutContext = useContext(CheckOutContext)
 	const foodContext = useContext(FoodContext)
 
-	const { modalVisible, hideModal } = checkOutContext
+	const { modalVisible, hideModal, setCheckoutItem } = checkOutContext
 	const { cart } = foodContext
 
 	const total = cart.reduce(
@@ -31,7 +31,7 @@ const CheckoutModal = () => {
 						key='submit'
 						type='primary'
 						// loading={loading}
-						onClick={hideModal}>
+						onClick={() => console.log('object')}>
 						Submit
 					</Button>,
 				]}>
