@@ -8,13 +8,34 @@ const CheckoutModal = () => {
 	const checkOutContext = useContext(CheckOutContext)
 	const foodContext = useContext(FoodContext)
 
-	const { modalVisible, hideModal, setCheckoutItem } = checkOutContext
-	const { cart } = foodContext
+	const {
+		modalVisible,
+		hideModal,
+		checkOutItem,
+		sendCheckout,
+		loading,
+		changeCheckoutId,
+		stopLoading,
+	} = checkOutContext
+	const { cart, removeCart } = foodContext
 
 	const total = cart.reduce(
 		(prev, next) => prev + next.price * next.quantity,
 		0
 	)
+
+	const prepareSend = () => {
+		const item = JSON.stringify(checkOutItem)
+		const formData = new FormData()
+		formData.append('check', item)
+		console.log(item)
+		sendCheckout(formData).then(() => {
+			removeCart()
+			hideModal()
+			changeCheckoutId()
+			stopLoading()
+		})
+	}
 
 	return (
 		<div>
@@ -25,13 +46,13 @@ const CheckoutModal = () => {
 				onCancel={hideModal}
 				footer={[
 					<Button key='back' onClick={hideModal}>
-						Return
+						Cancel
 					</Button>,
 					<Button
 						key='submit'
 						type='primary'
-						// loading={loading}
-						onClick={() => console.log('object')}>
+						loading={loading}
+						onClick={prepareSend}>
 						Submit
 					</Button>,
 				]}>

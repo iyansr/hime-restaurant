@@ -1,7 +1,8 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useContext } from 'react'
 import CheckOutContext from './checkOutContext'
 import CheckOutReducer from './checkOutReducer'
 import randomstring from 'randomstring'
+import Axios from 'axios'
 
 const date = new Date()
 
@@ -9,13 +10,24 @@ const CheckOutState = props => {
 	const initialState = {
 		modalVisible: false,
 		checkOutId:
-			'#HI_FOOD' +
+			'#HM' +
 			randomstring.generate({
-				length: 8,
-				charset: 'numeric',
+				length: 5,
+				charset: 'alphanumeric',
+				capitalization: 'uppercase',
 			}) +
-			date.getMilliseconds(),
+			date.getDay() +
+			date.getMonth() +
+			date.getFullYear() +
+			date.getHours() +
+			date.getMilliseconds() +
+			randomstring.generate({
+				length: 5,
+				charset: 'alphanumeric',
+				capitalization: 'uppercase',
+			}),
 		checkOutItem: [],
+		loading: false,
 	}
 
 	const [state, dispatch] = useReducer(CheckOutReducer, initialState)
@@ -30,21 +42,6 @@ const CheckOutState = props => {
 		dispatch({
 			type: 'HIDE_MODAL',
 			payload: false,
-		})
-	}
-
-	const changeCheckoutId = () => {
-		const newCheckoutId =
-			'#HI_FOOD' +
-			randomstring.generate({
-				length: 8,
-				charset: 'numeric',
-			}) +
-			date.getMilliseconds()
-
-		dispatch({
-			type: 'CHANGE_CHECKOUT_ID',
-			payload: newCheckoutId,
 		})
 	}
 
@@ -63,12 +60,55 @@ const CheckOutState = props => {
 				},
 			]
 		})
-
 		dispatch({
 			type: 'SET_CHECKOUT',
 			payload: newCheckoutItem,
 		})
 	}
+
+	const sendCheckout = async formData => {
+		try {
+			setLoading()
+			await Axios.post(
+				`${process.env.REACT_APP_BASE_API_URL}/checkout`,
+				formData
+			)
+
+			dispatch({ action: 'SEND_CHECKOUT' })
+		} catch (error) {
+			console.log(error)
+			dispatch({ action: 'ERROR_CHECKOUT' })
+		}
+	}
+
+	const changeCheckoutId = () => {
+		const newCheckoutId =
+			'#HM' +
+			randomstring.generate({
+				length: 5,
+				charset: 'alphanumeric',
+				capitalization: 'uppercase',
+			}) +
+			date.getDay() +
+			date.getMonth() +
+			date.getFullYear() +
+			date.getHours() +
+			date.getMilliseconds() +
+			randomstring.generate({
+				length: 5,
+				charset: 'alphanumeric',
+				capitalization: 'uppercase',
+			})
+		console.log(newCheckoutId)
+
+		dispatch({
+			type: 'CHANGE_CHECKOUT_ID',
+			payload: newCheckoutId,
+		})
+	}
+
+	const setLoading = () => dispatch({ type: 'SET_LOADING' })
+	const stopLoading = () => dispatch({ type: 'STOP_LOADING' })
 
 	return (
 		<CheckOutContext.Provider
@@ -76,10 +116,14 @@ const CheckOutState = props => {
 				modalVisible: state.modalVisible,
 				checkOutId: state.checkOutId,
 				checkOutItem: state.checkOutItem,
+				loading: state.loading,
 				showModal,
 				hideModal,
 				changeCheckoutId,
 				setCheckoutItem,
+				setLoading,
+				sendCheckout,
+				stopLoading,
 			}}>
 			{props.children}
 		</CheckOutContext.Provider>

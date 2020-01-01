@@ -20,8 +20,28 @@ export default (state, action) => {
 				...state,
 				checkOutItem: action.payload,
 			}
+		case 'SEND_CHECKOUT':
+			return {
+				...state,
+				loading: false,
+			}
+		case 'ERROR_CHECKOUT':
+			return {
+				...state,
+				loading: false,
+			}
+		case 'SET_LOADING':
+			return {
+				...state,
+				loading: true,
+			}
+		case 'STOP_LOADING':
+			return {
+				...state,
+				loading: false,
+			}
 
 		default:
-			break
+			return state
 	}
 }
