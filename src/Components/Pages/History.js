@@ -1,11 +1,14 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 
 const History = () => {
-	return (
-		<div>
-			<h1>Cart</h1>
-		</div>
-	)
+	if (localStorage.getItem('@usertoken'))
+		return (
+			<div>
+				<h1>Cart</h1>
+			</div>
+		)
+	return <Redirect to='/' />
 }
 
 export default History

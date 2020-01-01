@@ -1,5 +1,15 @@
 import React, { useState, useContext } from 'react'
-import { Form, Input, Icon, Select, Button, Modal, Upload, Switch } from 'antd'
+import {
+	Form,
+	Input,
+	Icon,
+	Select,
+	Button,
+	Modal,
+	Upload,
+	Switch,
+	message,
+} from 'antd'
 import FoodContext from '../../Context/Food/foodContext'
 
 const { Option } = Select
@@ -22,8 +32,9 @@ const FoodModal = () => {
 		errorMessage,
 	} = foodContext
 
-	const isBtnDisabled =
-		name.length > 3 && (imageUrl || fileList.length > 0) && category
+	const isBtnDisabled = !isUrl
+		? name.length > 3 && imageUrl && category
+		: name.length > 3 && fileList.length > 0 && category
 
 	const handleUpload = async () => {
 		console.log('IMAGE FILE')
@@ -67,7 +78,15 @@ const FoodModal = () => {
 			})
 		},
 		beforeUpload: file => {
-			setFileList(prev => [...prev, file])
+			const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
+			if (!isJpgOrPng) {
+				message.error('You can only upload JPG/PNG file!')
+			}
+			const isLt2M = file.size / 1024 / 1024 < 2
+			if (!isLt2M) {
+				message.error('Image must smaller than 2MB!')
+			}
+			isJpgOrPng && isLt2M && setFileList(prev => [...prev, file])
 			return false
 		},
 		fileList,
@@ -76,11 +95,6 @@ const FoodModal = () => {
 	const onChange = checked => {
 		console.log(`switch to ${checked}`)
 		setIsUrl(checked)
-		if (!checked) {
-			setFileList([])
-		} else {
-			setImageUrl('')
-		}
 	}
 
 	return (
@@ -166,8 +180,8 @@ const FoodModal = () => {
 						) : (
 							<>
 								<Upload {...props}>
-									<Button>
-										<Icon type='upload' /> Select File
+									<Button disabled={fileList.length > 0 ? true : false}>
+										<Icon type='upload' /> Upload
 									</Button>
 								</Upload>
 							</>

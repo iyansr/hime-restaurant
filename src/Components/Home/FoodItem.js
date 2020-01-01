@@ -1,18 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Icon, Row, Col, Card, Skeleton } from 'antd'
+import { Icon, Row, Col, Card, Skeleton, message } from 'antd'
 import ContentLoader from 'react-content-loader'
 import styles from './style.module.css'
 import FoodContext from '../../Context/Food/foodContext'
 import convertToRupiah from '../../utils/rupiah'
 import randomstring from 'randomstring'
 
-// const checkOutID =
-// 	'#HI_FOOD' +
-// 	randomstring.generate({
-// 		length: 8,
-// 		// capitalization: 'numeric',
-// 		charset: 'numeric',
-// 	})
+const date = new Date()
 
 const MyLoader = () => (
 	<ContentLoader
@@ -30,9 +24,9 @@ const FoodItem = () => {
 		'#HI_FOOD' +
 			randomstring.generate({
 				length: 8,
-				// capitalization: 'numeric',
 				charset: 'numeric',
-			})
+			}) +
+			date.getMilliseconds()
 	)
 
 	const foodContext = useContext(FoodContext)
@@ -43,9 +37,9 @@ const FoodItem = () => {
 			'#HI_FOOD' +
 				randomstring.generate({
 					length: 8,
-					// capitalization: 'numeric',
 					charset: 'numeric',
-				})
+				}) +
+				date.getMilliseconds()
 		)
 	}
 
@@ -69,15 +63,14 @@ const FoodItem = () => {
 								<div className={styles.bg_image}>
 									<img
 										onClick={() =>
-											!cart.filter(c => c.id === d.id).length > 0 &&
-											addToCart({
-												id_transaction: checkOutID,
-												id: d.id,
-												name: d.name,
-												image: d.image,
-												price: d.price,
-												quantity: 1,
-											})
+											!localStorage.getItem('@usertoken')
+												? message.error('You should login ')
+												: !cart.filter(c => c.id === d.id).length > 0 &&
+												  addToCart({
+														id_transaction: checkOutID,
+														...d,
+														quantity: 1,
+												  })
 										}
 										alt='example'
 										src={d.image}

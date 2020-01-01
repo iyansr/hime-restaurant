@@ -7,7 +7,7 @@ const { Content } = Layout
 
 const FoodContainer = () => {
 	const FoodContext = useContext(foodContext)
-	const { totalFood, foods, getFood } = FoodContext
+	const { totalFood, getFood } = FoodContext
 	return (
 		<Layout style={{ minHeight: '100vh' }}>
 			<Content style={{ margin: '8px 8px' }}>
