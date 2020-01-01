@@ -12,24 +12,27 @@ import History from './Components/Pages/History'
 import CheckoutModal from './Components/Layouts/Modal'
 import FoodModal from './Components/Layouts/FoodModal'
 import LoginModal from './Components/Layouts/LoginModal'
+import HistoryState from './Context/History/HistoryState'
 
 const App = () => {
 	return (
 		<UserState>
 			<CheckOutState>
 				<FoodState>
-					<Router>
-						<Layout style={{ minHeight: '100vh' }}>
-							<SideNav />
-							<CheckoutModal />
-							<FoodModal />
-							<LoginModal />
-							<Switch>
-								<Route exact path='/' component={Home} />
-								<Route path='/history' component={History} />
-							</Switch>
-						</Layout>
-					</Router>
+					<HistoryState>
+						<Router>
+							<Layout style={{ minHeight: '100vh' }}>
+								<SideNav />
+								<CheckoutModal />
+								<FoodModal />
+								<LoginModal />
+								<Switch>
+									<Route exact path='/' component={Home} />
+									<Route path='/history' component={History} />
+								</Switch>
+							</Layout>
+						</Router>
+					</HistoryState>
 				</FoodState>
 			</CheckOutState>
 		</UserState>

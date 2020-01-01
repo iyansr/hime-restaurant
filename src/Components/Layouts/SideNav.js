@@ -52,8 +52,8 @@ const SideNav = () => {
 				{localStorage.getItem('@usertoken') ? (
 					<Menu.Item key='logout'>
 						<Popconfirm
-							placement='rightBottom'
-							title='Are you sure want to log out?'
+							// placement='rightBottom'
+							title='Are you sure want to log delete'
 							okText='Yes'
 							cancelText='No'
 							onConfirm={() => {

@@ -73,12 +73,17 @@ const CheckOutState = props => {
 				`${process.env.REACT_APP_BASE_API_URL}/checkout`,
 				formData
 			)
-
+			clearCheckout()
 			dispatch({ action: 'SEND_CHECKOUT' })
 		} catch (error) {
 			console.log(error)
 			dispatch({ action: 'ERROR_CHECKOUT' })
 		}
+	}
+	const clearCheckout = () => {
+		dispatch({
+			type: 'CLEAR_CHECKOUT',
+		})
 	}
 
 	const changeCheckoutId = () => {
@@ -124,6 +129,7 @@ const CheckOutState = props => {
 				setLoading,
 				sendCheckout,
 				stopLoading,
+				clearCheckout,
 			}}>
 			{props.children}
 		</CheckOutContext.Provider>

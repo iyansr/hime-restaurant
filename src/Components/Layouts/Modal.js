@@ -16,6 +16,7 @@ const CheckoutModal = () => {
 		loading,
 		changeCheckoutId,
 		stopLoading,
+		clearCheckout,
 	} = checkOutContext
 	const { cart, removeCart } = foodContext
 
@@ -43,9 +44,17 @@ const CheckoutModal = () => {
 				visible={modalVisible}
 				title='Checkout'
 				// onOk={hideModal}
-				onCancel={hideModal}
+				onCancel={() => {
+					hideModal()
+					clearCheckout()
+				}}
 				footer={[
-					<Button key='back' onClick={hideModal}>
+					<Button
+						key='back'
+						onClick={() => {
+							hideModal()
+							clearCheckout()
+						}}>
 						Cancel
 					</Button>,
 					<Button

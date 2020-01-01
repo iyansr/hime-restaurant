@@ -40,6 +40,11 @@ export default (state, action) => {
 				...state,
 				loading: false,
 			}
+		case 'CLEAR_CHECKOUT':
+			return {
+				...state,
+				checkOutItem: [],
+			}
 
 		default:
 			return state
