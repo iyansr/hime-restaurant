@@ -7,7 +7,6 @@ import {
 	Dropdown,
 	Button,
 	Icon,
-	message,
 	Radio,
 	Input,
 	Pagination,

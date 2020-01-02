@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Layout, Card, Row, Col } from 'antd'
+import { Layout } from 'antd'
 import HistoryTable from '../History/HistoryTable'
 import ChartHistory from '../History/ChartHistory'
 

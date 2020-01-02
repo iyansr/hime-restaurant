@@ -31,6 +31,7 @@ const ChartHistory = () => {
 
 	useEffect(() => {
 		getDates()
+		//eslint-disable-next-line
 	}, [])
 
 	const getChart = async () => {
@@ -57,6 +58,7 @@ const ChartHistory = () => {
 
 	useEffect(() => {
 		getChart()
+		//eslint-disable-next-line
 	}, [])
 
 	const getTotalOrder = async () => {

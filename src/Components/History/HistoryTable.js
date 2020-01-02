@@ -1,42 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Table, Tag, Layout } from 'antd'
 import HistoryContext from '../../Context/History/historyContext'
 import convertToRupiah from '../../utils/rupiah'
-import moment from 'moment'
-import Axios from 'axios'
 
 const HistoryTable = () => {
 	const historyContext = useContext(HistoryContext)
 
 	const { historyTable, getHistoryTable } = historyContext
 
-	const [chartData, setChartData] = useState([])
-	const dateNow = moment().format('DD MMMM YYYY')
-	const [totalIncome, setTotalIncome] = useState(0)
-
 	useEffect(() => {
 		getHistoryTable()
 		//eslint-disable-next-line
-	}, [])
-
-	const getChart = async () => {
-		try {
-			const response = await Axios.get(
-				`${process.env.REACT_APP_BASE_API_URL}/checkout/chart`
-			)
-
-			setChartData(response.data)
-
-			setTotalIncome(
-				response.data.filter(val => val.createdAt === dateNow)[0].total
-			)
-		} catch (error) {
-			console.log(error)
-		}
-	}
-
-	useEffect(() => {
-		getChart()
 	}, [])
 
 	const columns = [
