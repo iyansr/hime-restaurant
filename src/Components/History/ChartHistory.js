@@ -5,6 +5,14 @@ import moment from 'moment'
 import Axios from 'axios'
 import convertToRupiah from '../../utils/rupiah'
 
+let apiBaseUrl
+
+if (process.env.NODE_ENV !== 'production') {
+	apiBaseUrl = process.env.REACT_APP_BASE_API_URL
+} else {
+	apiBaseUrl = process.env.BASE_API_URL
+}
+
 const ChartHistory = () => {
 	const dateNow = moment().format('DD MMMM YYYY')
 
@@ -36,9 +44,7 @@ const ChartHistory = () => {
 
 	const getChart = async () => {
 		try {
-			const response = await Axios.get(
-				`${process.env.REACT_APP_BASE_API_URL}/checkout/chart`
-			)
+			const response = await Axios.get(`${apiBaseUrl}/checkout/chart`)
 
 			const data = response.data.map(d => d.total)
 
@@ -63,9 +69,7 @@ const ChartHistory = () => {
 
 	const getTotalOrder = async () => {
 		try {
-			const response = await Axios.get(
-				`${process.env.REACT_APP_BASE_API_URL}/checkout`
-			)
+			const response = await Axios.get(`${apiBaseUrl}/checkout`)
 
 			setTotalOrder(response.data.length)
 		} catch (error) {
