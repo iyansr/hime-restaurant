@@ -13,27 +13,30 @@ import CheckoutModal from './Components/Layouts/Modal'
 import FoodModal from './Components/Layouts/FoodModal'
 import LoginModal from './Components/Layouts/LoginModal'
 import HistoryState from './Context/History/HistoryState'
+import SearchState from './Context/Search/SearchState'
 
 const App = () => {
 	return (
 		<UserState>
 			<CheckOutState>
-				<FoodState>
-					<HistoryState>
-						<Router>
-							<Layout style={{ minHeight: '100vh' }}>
-								<SideNav />
-								<CheckoutModal />
-								<FoodModal />
-								<LoginModal />
-								<Switch>
-									<Route exact path='/' component={Home} />
-									<Route path='/history' component={History} />
-								</Switch>
-							</Layout>
-						</Router>
-					</HistoryState>
-				</FoodState>
+				<SearchState>
+					<FoodState>
+						<HistoryState>
+							<Router>
+								<Layout style={{ minHeight: '100vh' }}>
+									<SideNav />
+									<CheckoutModal />
+									<FoodModal />
+									<LoginModal />
+									<Switch>
+										<Route exact path='/' component={Home} />
+										<Route path='/history' component={History} />
+									</Switch>
+								</Layout>
+							</Router>
+						</HistoryState>
+					</FoodState>
+				</SearchState>
 			</CheckOutState>
 		</UserState>
 	)

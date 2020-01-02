@@ -18,22 +18,36 @@ const FoodState = props => {
 		editPrice: '',
 		editCategory: '',
 		idFood: '',
+		errorSearchFood: false,
 	}
 
 	const [state, dispatch] = useReducer(FoodReducer, initialState)
 
-	const getFood = async page => {
+	const getFood = async (
+		page = 1,
+		category,
+		name,
+		order,
+		priceMin,
+		priceMax
+	) => {
 		setLoading()
 		try {
 			const response = await axios.get(
-				`${process.env.REACT_APP_BASE_API_URL}/food?limit=6&page=${page || 1}`
+				`${
+					process.env.REACT_APP_BASE_API_URL
+				}/food?limit=6&page=${page}&category=${category ||
+					''}&price=${priceMin || 0};${priceMax || 200000}&name=${name ||
+					''}&order=${order || 'ASC'}`
 			)
 			dispatch({
 				type: 'GET_FOOD',
 				payload: response.data,
 			})
 		} catch (error) {
-			console.log(error)
+			dispatch({
+				type: 'ERROR_SEARCH_FOOD',
+			})
 		}
 	}
 
@@ -214,6 +228,7 @@ const FoodState = props => {
 				errorMessage: state.errorMessage,
 				totalFood: state.totalFood,
 				editModalVisible: state.editModalVisible,
+				errorSearchFood: state.errorSearchFood,
 				editCategory: state.editCategory,
 				editImage: state.editImage,
 				editName: state.editName,

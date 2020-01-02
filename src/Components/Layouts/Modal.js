@@ -71,7 +71,6 @@ const CheckoutModal = () => {
 					<Button
 						key='print'
 						onClick={() => {
-							hideModal()
 							clearCheckout()
 							printToPdf()
 						}}>

@@ -24,6 +24,7 @@ const UserState = props => {
 				type: 'LOGIN_USER',
 				payload: response.data.token,
 			})
+			window.location.reload(true)
 			hideModal()
 		} catch (error) {
 			dispatch({

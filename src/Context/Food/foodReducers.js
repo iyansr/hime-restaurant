@@ -31,6 +31,12 @@ export default (state, action) => {
 				foods: action.payload.foods,
 				totalFood: action.payload.totalData,
 				loading: false,
+				errorSearchFood: false,
+			}
+		case 'ERROR_SEARCH_FOOD':
+			return {
+				...state,
+				errorSearchFood: true,
 			}
 		case 'SET_LOADING':
 			return {

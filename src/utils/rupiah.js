@@ -8,7 +8,7 @@ const convertToRupiah = angka => {
 	for (let i = 0; i < angkarev.length; i++)
 		if (i % 3 === 0) rupiah += angkarev.substr(i, 3) + '.'
 	return (
-		'Rp. ' +
+		'IDR. ' +
 		rupiah
 			.split('', rupiah.length - 1)
 			.reverse()

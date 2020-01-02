@@ -112,49 +112,51 @@ const FoodItem = () => {
 								<Skeleton loading={loading} paragraph={{ rows: 1 }} active>
 									<h4>{d.name}</h4>
 									<h3>{convertToRupiah(d.price)}</h3>
-									<Popover
-										placement='rightBottom'
-										trigger='click'
-										content={
-											<div>
-												<Button
-													type='primary'
-													size='small'
-													onClick={() => {
-														showEditFoodModal()
-													}}>
-													Edit
-												</Button>
-
-												<Popconfirm
-													onConfirm={() => {
-														deleteFood(d.id)
-														message.success('Succes Delete')
-													}}
-													title='Are you sure want to delete?'
-													okText='Yes'
-													cancelText='No'>
+									{localStorage.getItem('@usertoken') && (
+										<Popover
+											placement='rightBottom'
+											trigger='click'
+											content={
+												<div>
 													<Button
-														type='danger'
+														type='primary'
 														size='small'
-														style={{ marginLeft: 5 }}>
-														Delete
+														onClick={() => {
+															showEditFoodModal()
+														}}>
+														Edit
 													</Button>
-												</Popconfirm>
-											</div>
-										}>
-										<Button
-											onClick={() => {
-												editModalForm(d.name, d.image, d.price)
-												setCategory(d.Category.id)
-												setIdFood(d.id)
-											}}
-											type='dashed'
-											size='small'
-											style={{ float: 'right' }}>
-											Action
-										</Button>
-									</Popover>
+
+													<Popconfirm
+														onConfirm={() => {
+															deleteFood(d.id)
+															message.success('Succes Delete')
+														}}
+														title='Are you sure want to delete?'
+														okText='Yes'
+														cancelText='No'>
+														<Button
+															type='danger'
+															size='small'
+															style={{ marginLeft: 5 }}>
+															Delete
+														</Button>
+													</Popconfirm>
+												</div>
+											}>
+											<Button
+												onClick={() => {
+													editModalForm(d.name, d.image, d.price)
+													setCategory(d.Category.id)
+													setIdFood(d.id)
+												}}
+												type='dashed'
+												size='small'
+												style={{ float: 'right' }}>
+												Action
+											</Button>
+										</Popover>
+									)}
 								</Skeleton>
 							</Card>
 						</Col>

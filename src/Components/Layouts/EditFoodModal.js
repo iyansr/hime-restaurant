@@ -54,7 +54,7 @@ const EditFoodModal = () => {
 			console.log(pair[0] + ', ' + pair[1])
 		}
 
-		editFood(formData).then(() => {
+		editFood(formData, idFood).then(() => {
 			setFileList([])
 			clearForm()
 		})
