@@ -13,7 +13,7 @@ const ChartHistory = () => {
 	const [series, setSeries] = useState([])
 	const [totalIncome, setTotalIncome] = useState(0)
 	const [todayIncome, setTodayIncome] = useState(0)
-	const [totalOrder, setTotalOrder] = useState(9)
+	const [totalOrder, setTotalOrder] = useState(0)
 
 	const getDates = () => {
 		const date = new Date()

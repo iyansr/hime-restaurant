@@ -4,6 +4,14 @@ import FoodReducer from './foodReducers'
 import { foodData } from '../../Components/Home/dummy'
 import axios from 'axios'
 
+let apiBaseUrl
+
+if (process.env.NODE_ENV !== 'production') {
+	apiBaseUrl = process.env.REACT_APP_BASE_API_URL
+} else {
+	apiBaseUrl = process.env.BASE_API_URL
+}
+
 const FoodState = props => {
 	const initialState = {
 		foods: foodData,
@@ -34,9 +42,7 @@ const FoodState = props => {
 		setLoading()
 		try {
 			const response = await axios.get(
-				`${
-					process.env.REACT_APP_BASE_API_URL
-				}/food?limit=6&page=${page}&category=${category ||
+				`${apiBaseUrl}/food?limit=6&page=${page}&category=${category ||
 					''}&price=${priceMin || 0};${priceMax || 200000}&name=${name ||
 					''}&order=${order || 'ASC'}`
 			)
@@ -61,7 +67,7 @@ const FoodState = props => {
 	const addFood = async formData => {
 		setLoading()
 		try {
-			await axios.post(`${process.env.REACT_APP_BASE_API_URL}/food`, formData)
+			await axios.post(`${apiBaseUrl}/food`, formData)
 			dispatch({
 				type: 'ADD_FOOD',
 			})
@@ -78,10 +84,7 @@ const FoodState = props => {
 	const editFood = async (formData, id) => {
 		setLoading()
 		try {
-			await axios.patch(
-				`${process.env.REACT_APP_BASE_API_URL}/food/${id}`,
-				formData
-			)
+			await axios.patch(`${apiBaseUrl}/food/${id}`, formData)
 			dispatch({
 				type: 'EDIT_FOOD',
 			})
@@ -131,7 +134,7 @@ const FoodState = props => {
 	const deleteFood = async id => {
 		setLoading()
 		try {
-			await axios.delete(`${process.env.REACT_APP_BASE_API_URL}/food/${id}`)
+			await axios.delete(`${apiBaseUrl}/food/${id}`)
 			getFood()
 			hideFoodModal()
 		} catch (error) {

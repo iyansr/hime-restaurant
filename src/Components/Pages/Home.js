@@ -63,7 +63,7 @@ const Home = () => {
 			searchTerm.search,
 			e.target.value,
 			10000,
-			100000
+			searchTerm.max
 		)
 	}
 
@@ -102,6 +102,7 @@ const Home = () => {
 
 	function onAfterChange(val) {
 		console.log('onAfterChange: ', val)
+		setSearchTerm({ ...searchTerm, max: val })
 		getFood(1, searchTerm.categoryIdx, searchTerm.search, value, 10000, val)
 	}
 

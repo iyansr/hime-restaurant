@@ -3,6 +3,14 @@ import HistoryReducer from './historyReducer'
 import HistoryContext from './historyContext'
 import Axios from 'axios'
 
+let apiBaseUrl
+
+if (process.env.NODE_ENV !== 'production') {
+	apiBaseUrl = process.env.REACT_APP_BASE_API_URL
+} else {
+	apiBaseUrl = process.env.BASE_API_URL
+}
+
 const HistoryState = props => {
 	const initialState = {
 		historyTable: [],
@@ -12,9 +20,7 @@ const HistoryState = props => {
 
 	const getHistoryTable = async () => {
 		try {
-			const response = await Axios.get(
-				`${process.env.REACT_APP_BASE_API_URL}/checkout`
-			)
+			const response = await Axios.get(`${apiBaseUrl}/checkout`)
 			dispatch({
 				type: 'GET_TABLE',
 				payload: response.data,

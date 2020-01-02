@@ -3,6 +3,14 @@ import UserReducer from './userReducer'
 import UserContext from './userContext'
 import Axios from 'axios'
 
+let apiBaseUrl
+
+if (process.env.NODE_ENV !== 'production') {
+	apiBaseUrl = process.env.REACT_APP_BASE_API_URL
+} else {
+	apiBaseUrl = process.env.BASE_API_URL
+}
+
 const UserState = props => {
 	const initialState = {
 		userToken: null,
@@ -16,10 +24,7 @@ const UserState = props => {
 	const loginUser = async formData => {
 		try {
 			setLoading()
-			const response = await Axios.post(
-				`${process.env.REACT_APP_BASE_API_URL}/user/login`,
-				formData
-			)
+			const response = await Axios.post(`${apiBaseUrl}/user/login`, formData)
 			dispatch({
 				type: 'LOGIN_USER',
 				payload: response.data.token,

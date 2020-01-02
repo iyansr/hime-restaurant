@@ -6,6 +6,14 @@ import Axios from 'axios'
 
 const date = new Date()
 
+let apiBaseUrl
+
+if (process.env.NODE_ENV !== 'production') {
+	apiBaseUrl = process.env.REACT_APP_BASE_API_URL
+} else {
+	apiBaseUrl = process.env.BASE_API_URL
+}
+
 const CheckOutState = props => {
 	const initialState = {
 		modalVisible: false,
@@ -69,10 +77,7 @@ const CheckOutState = props => {
 	const sendCheckout = async formData => {
 		try {
 			setLoading()
-			await Axios.post(
-				`${process.env.REACT_APP_BASE_API_URL}/checkout`,
-				formData
-			)
+			await Axios.post(`${apiBaseUrl}/checkout`, formData)
 			clearCheckout()
 			dispatch({ action: 'SEND_CHECKOUT' })
 		} catch (error) {
