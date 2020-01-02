@@ -3,6 +3,7 @@ import { Modal, Button } from 'antd'
 import CheckOutContext from '../../Context/Checkout/checkOutContext'
 import FoodContext from '../../Context/Food/foodContext'
 import convertToRupiah from '../../utils/rupiah'
+import SimplePrint from 'simple-print'
 
 const CheckoutModal = () => {
 	const checkOutContext = useContext(CheckOutContext)
@@ -38,6 +39,16 @@ const CheckoutModal = () => {
 		})
 	}
 
+	const print = new SimplePrint({
+		styles: [
+			'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
+		],
+	})
+	const printToPdf = () => {
+		const element = document.getElementById('element_to_printPDF')
+		print.render(element)
+	}
+
 	return (
 		<div>
 			<Modal
@@ -58,6 +69,15 @@ const CheckoutModal = () => {
 						Cancel
 					</Button>,
 					<Button
+						key='print'
+						onClick={() => {
+							hideModal()
+							clearCheckout()
+							printToPdf()
+						}}>
+						Print
+					</Button>,
+					<Button
 						key='submit'
 						type='primary'
 						loading={loading}
@@ -65,8 +85,8 @@ const CheckoutModal = () => {
 						Submit
 					</Button>,
 				]}>
-				<div style={{ width: '100%' }}>
-					<p>{cart.length > 0 && cart[0].id_transaction}</p>
+				<div style={{ width: '100%' }} id='element_to_printPDF'>
+					<p>{cart.length > 0 && 'Receipt id :' + cart[0].id_transaction}</p>
 					<table style={{ width: '100%' }}>
 						<thead>
 							<tr>

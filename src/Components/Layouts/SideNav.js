@@ -53,7 +53,7 @@ const SideNav = () => {
 					<Menu.Item key='logout'>
 						<Popconfirm
 							// placement='rightBottom'
-							title='Are you sure want to log delete'
+							title='Are you sure want to log out?'
 							okText='Yes'
 							cancelText='No'
 							onConfirm={() => {

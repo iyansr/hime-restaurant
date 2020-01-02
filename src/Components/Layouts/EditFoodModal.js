@@ -14,27 +14,30 @@ import FoodContext from '../../Context/Food/foodContext'
 
 const { Option } = Select
 
-const FoodModal = () => {
+const EditFoodModal = () => {
 	const foodContext = useContext(FoodContext)
-
-	const [fileList, setFileList] = useState([])
-	const [name, setName] = useState('')
-	const [price, setPrice] = useState(10000)
-	const [imageUrl, setImageUrl] = useState('')
-	const [category, setCategory] = useState('')
-	const [isUrl, setIsUrl] = useState(false)
-
 	const {
-		foodModalVisible,
-		hideFoodModal,
+		editModalVisible,
+		hideEditFoodModal,
 		loading,
-		addFood,
+		editFood,
 		errorMessage,
+		editImage,
+		editName,
+		editPrice,
+		editCategory,
+		handleFormEditChange,
+		setCategory,
+		clearForm,
+		idFood,
 	} = foodContext
 
+	const [fileList, setFileList] = useState([])
+	const [isUrl, setIsUrl] = useState(false)
+
 	const isBtnDisabled = !isUrl
-		? name.length > 3 && imageUrl && category
-		: name.length > 3 && fileList.length > 0 && category
+		? editName.length > 3 && editImage && editCategory
+		: editName.length > 3 && fileList.length > 0 && editCategory
 
 	const handleUpload = async () => {
 		console.log('IMAGE FILE')
@@ -43,40 +46,34 @@ const FoodModal = () => {
 		if (fileList[0]) {
 			formData.append('image', fileList[0])
 		}
-		formData.append('name', name)
-		formData.append('price', price)
-		formData.append('category', category)
+		formData.append('name', editName)
+		formData.append('price', editPrice)
+		formData.append('category', editCategory)
 
 		for (let pair of formData.entries()) {
 			console.log(pair[0] + ', ' + pair[1])
 		}
 
-		addFood(formData).then(() => {
+		editFood(formData).then(() => {
 			setFileList([])
-			setName('')
-			setPrice(10000)
-			setImageUrl('')
-			setCategory('')
+			clearForm()
 		})
 	}
 
 	const handleSubmit = async () => {
 		console.log('IMAGE URL')
 		const formData = new FormData()
-		formData.append('name', name)
-		formData.append('price', price)
-		formData.append('category', category)
-		formData.append('image', imageUrl)
+		formData.append('name', editName)
+		formData.append('price', editPrice)
+		formData.append('category', editCategory)
+		formData.append('image', editImage)
 
 		for (let pair of formData.entries()) {
 			console.log(pair[0] + ', ' + pair[1])
 		}
-		addFood(formData).then(() => {
+		editFood(formData, idFood).then(() => {
 			setFileList([])
-			setName('')
-			setPrice(10000)
-			setImageUrl('')
-			setCategory('')
+			clearForm()
 		})
 	}
 
@@ -112,12 +109,12 @@ const FoodModal = () => {
 	return (
 		<div>
 			<Modal
-				visible={foodModalVisible}
-				title='Add Menu'
+				visible={editModalVisible}
+				title='Edit Menu'
 				// onOk={hideModal}
-				onCancel={hideFoodModal}
+				onCancel={hideEditFoodModal}
 				footer={[
-					<Button key='back' onClick={hideFoodModal}>
+					<Button key='back' onClick={hideEditFoodModal}>
 						Cancel
 					</Button>,
 					<Button
@@ -135,9 +132,9 @@ const FoodModal = () => {
 						validateStatus={errorMessage.name && 'error'}
 						help={errorMessage.name && errorMessage.name}>
 						<Input
-							name='name'
-							value={name}
-							onChange={e => setName(e.target.value)}
+							name='editName'
+							value={editName}
+							onChange={handleFormEditChange}
 							placeholder='Input Name'
 						/>
 					</Form.Item>
@@ -147,10 +144,9 @@ const FoodModal = () => {
 						help={errorMessage.category && errorMessage.category}>
 						<Select
 							placeholder='Select a option and change input text above'
-							value={category}
-							onChange={e => {
-								setCategory(e)
-							}}>
+							value={editCategory}
+							defaultValue={editCategory}
+							onChange={setCategory}>
 							<Option value='b2002274-0033-40db-b76d-82a17191b604'>
 								Sushi
 							</Option>
@@ -170,14 +166,14 @@ const FoodModal = () => {
 						validateStatus={errorMessage.price && 'error'}
 						help={errorMessage.price && errorMessage.price}>
 						<Input
-							name='price'
+							name='editPrice'
 							placeholder='Input Price'
 							type='number'
 							min={10000}
 							step={1000}
-							vale={price}
-							defaultValue={price}
-							onChange={e => setPrice(e.target.value)}
+							value={editPrice}
+							defaultValue={editPrice}
+							onChange={handleFormEditChange}
 						/>
 					</Form.Item>
 					<Switch defaultChecked={isUrl} onChange={onChange} />
@@ -187,10 +183,10 @@ const FoodModal = () => {
 						help={errorMessage.image && errorMessage.image}>
 						{!isUrl ? (
 							<Input
-								name='image'
+								name='editImage'
 								placeholder='Url Image'
-								value={imageUrl}
-								onChange={e => setImageUrl(e.target.value)}
+								value={editImage}
+								onChange={handleFormEditChange}
 							/>
 						) : (
 							<>
@@ -208,4 +204,4 @@ const FoodModal = () => {
 	)
 }
 
-export default FoodModal
+export default EditFoodModal

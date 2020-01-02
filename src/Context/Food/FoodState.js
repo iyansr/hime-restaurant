@@ -11,7 +11,13 @@ const FoodState = props => {
 		cart: [],
 		loading: false,
 		foodModalVisible: false,
+		editModalVisible: false,
 		errorMessage: {},
+		editImage: '',
+		editName: '',
+		editPrice: '',
+		editCategory: '',
+		idFood: '',
 	}
 
 	const [state, dispatch] = useReducer(FoodReducer, initialState)
@@ -31,6 +37,13 @@ const FoodState = props => {
 		}
 	}
 
+	const setIdFood = id => {
+		dispatch({
+			type: 'SET_EDIT_FOOD',
+			payload: id,
+		})
+	}
+
 	const addFood = async formData => {
 		setLoading()
 		try {
@@ -38,6 +51,73 @@ const FoodState = props => {
 			dispatch({
 				type: 'ADD_FOOD',
 			})
+			getFood()
+			hideFoodModal()
+		} catch (error) {
+			dispatch({
+				type: 'FORM_FOOD_ERROR',
+				payload: error.response.data.message,
+			})
+		}
+	}
+
+	const editFood = async (formData, id) => {
+		setLoading()
+		try {
+			await axios.patch(
+				`${process.env.REACT_APP_BASE_API_URL}/food/${id}`,
+				formData
+			)
+			dispatch({
+				type: 'EDIT_FOOD',
+			})
+			getFood()
+			hideEditFoodModal()
+		} catch (error) {
+			dispatch({
+				type: 'FORM_FOOD_ERROR',
+				payload: error.response.data.message,
+			})
+		}
+	}
+
+	const editModalForm = (name, image, price) => {
+		dispatch({
+			type: 'EDIT_MODAL_FORM',
+			payload: {
+				name,
+				image,
+				price,
+			},
+		})
+	}
+	const clearForm = () => {
+		dispatch({
+			type: 'CLEAR_FORM',
+		})
+	}
+	const setCategory = data => {
+		dispatch({
+			type: 'SET_CATEGORY',
+			payload: data,
+		})
+	}
+
+	const handleFormEditChange = e => {
+		let newForm = {
+			...state,
+			[e.target.name]: e.target.value,
+		}
+		dispatch({
+			type: 'CHANGE_FORM',
+			payload: newForm,
+		})
+	}
+
+	const deleteFood = async id => {
+		setLoading()
+		try {
+			await axios.delete(`${process.env.REACT_APP_BASE_API_URL}/food/${id}`)
 			getFood()
 			hideFoodModal()
 		} catch (error) {
@@ -102,6 +182,7 @@ const FoodState = props => {
 	}
 
 	const setLoading = () => dispatch({ type: 'SET_LOADING' })
+
 	const showFoodModal = () => {
 		dispatch({
 			type: 'SHOW_FOOD_MODAL',
@@ -110,6 +191,16 @@ const FoodState = props => {
 	const hideFoodModal = () => {
 		dispatch({
 			type: 'HIDE_FOOD_MODAL',
+		})
+	}
+	const showEditFoodModal = () => {
+		dispatch({
+			type: 'SHOW_EDIT_FOOD_MODAL',
+		})
+	}
+	const hideEditFoodModal = () => {
+		dispatch({
+			type: 'HIDE_EDIT_FOOD_MODAL',
 		})
 	}
 
@@ -122,6 +213,12 @@ const FoodState = props => {
 				foodModalVisible: state.foodModalVisible,
 				errorMessage: state.errorMessage,
 				totalFood: state.totalFood,
+				editModalVisible: state.editModalVisible,
+				editCategory: state.editCategory,
+				editImage: state.editImage,
+				editName: state.editName,
+				editPrice: state.editPrice,
+				idFood: state.idFood,
 				addToCart,
 				removeCart,
 				addQty,
@@ -131,6 +228,15 @@ const FoodState = props => {
 				hideFoodModal,
 				showFoodModal,
 				addFood,
+				showEditFoodModal,
+				hideEditFoodModal,
+				editFood,
+				deleteFood,
+				editModalForm,
+				handleFormEditChange,
+				setCategory,
+				clearForm,
+				setIdFood,
 			}}>
 			{props.children}
 		</FoodContext.Provider>

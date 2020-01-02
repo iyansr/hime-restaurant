@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from 'react'
+import React, { useReducer } from 'react'
 import CheckOutContext from './checkOutContext'
 import CheckOutReducer from './checkOutReducer'
 import randomstring from 'randomstring'
@@ -49,7 +49,7 @@ const CheckOutState = props => {
 		let newCheckoutItem = state.checkOutItem
 
 		items.map(item => {
-			newCheckoutItem = [
+			return (newCheckoutItem = [
 				...newCheckoutItem,
 				{
 					checkout_id: item.id_transaction,
@@ -58,7 +58,7 @@ const CheckOutState = props => {
 					quantity: item.quantity,
 					total: item.quantity * item.price,
 				},
-			]
+			])
 		})
 		dispatch({
 			type: 'SET_CHECKOUT',
