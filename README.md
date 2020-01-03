@@ -5,9 +5,11 @@ Point of Sales System build with ReactJS with Hooks and Context API
 Deployed on zeit now [Link](https://hime-restaurant.now.sh/)
 
 <div align='center'>
-  <img src='https://res.cloudinary.com/iyansrcloud/image/upload/v1578034806/screenshot/Home_si6d6r.png' height='400' style='margin: 30px 0 10px 0' />
+  <img src='https://res.cloudinary.com/iyansrcloud/image/upload/v1578034806/screenshot/Home_si6d6r.png' width='800'  />
 
-  <a href='https://hime-restaurant.now.sh/'>
+</div>
+<div align='center'>
+ <a href='https://hime-restaurant.now.sh/'>
   <img src='https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg'' />
   </a>
   <a href="http://opensource.org/licenses/MIT">
