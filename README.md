@@ -5,7 +5,7 @@ Point of Sales System build with ReactJS with Hooks and Context API
 Deployed on zeit now [Link](https://hime-restaurant.now.sh/)
 
 <div align='center'>
-  <img src='https://res.cloudinary.com/iyansrcloud/image/upload/v1578034806/screenshot/Home_si6d6r.png' width='800'  />
+  <img src='https://res.cloudinary.com/iyansrcloud/image/upload/c_scale,w_1461/v1578034806/screenshot/Home_si6d6r.png' width='800'  />
 
 </div>
 <div align='center'>
