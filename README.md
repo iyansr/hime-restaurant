@@ -53,6 +53,7 @@ Deployed on zeit now [Link](https://hime-restaurant.now.sh/)
   ```bash
   # with yarn
   $ yarn start
+  
   # or with npm
   $ npm start
   ```
