@@ -1,68 +1,89 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Hime Restaurant Point Of Sales
 
-## Available Scripts
+Point of Sales System build with ReactJS with Hooks and Context API
 
-In the project directory, you can run:
+Deployed on zeit now [Link](https://hime-restaurant.now.sh/)
 
-### `yarn start`
+<div align='center'>
+  <img src='https://res.cloudinary.com/iyansrcloud/image/upload/v1578034806/screenshot/Home_si6d6r.png' height='400' style='margin: 30px 0 10px 0' />
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  <a href='https://hime-restaurant.now.sh/'>
+  <img src='https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg'' />
+  </a>
+  <a href="http://opensource.org/licenses/MIT">
+    <img title="MIT license" src="http://img.shields.io/badge/license-MIT-brightgreen.svg">
+  </a>
+  <a href="#">
+    <img title="Open Source Love" src="https://badges.frapsoft.com/os/v1/open-source.svg?v=102">
+  </a>
+   <a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg"></a>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+</div>
 
-### `yarn test`
+---
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `yarn build`
+- List Foods
+- CRUD
+- Search & Sort
+- Add / Remove Cart
+- Print Receipt
+- History
+- Income
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Build Setup
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- Make sure you have backend [API](https://github.com/iyansr/hime-restaurant-api)
+- Clone Repository `git clone https://github.com/iyansr/hime-restaurant.git`
+- Install Dependencies 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  ```bash
+  # with yarn
+  $ yarn install
 
-### `yarn eject`
+  # or with npm
+  $ npm install
+  ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Run the development Server 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  ```bash
+  # with yarn
+  $ yarn start
+  # or with npm
+  $ npm start
+  ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Open in browser with port `3000`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Stacks
 
-## Learn More
+- ReactJS With Hooks and Context API
+- Ant Design
+- Apex Chart
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Dependencies
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- momentjs
+- simple-print
+- react-router-dom
+- react-apexcharts
+- randomstring
+- axios
+- react-content-loader
 
-### Code Splitting
+## Screenshots
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+![Home](https://res.cloudinary.com/iyansrcloud/image/upload/v1578036613/screenshot/Screenshot_27_msixws.png)
 
-### Analyzing the Bundle Size
+![Checkout](https://res.cloudinary.com/iyansrcloud/image/upload/v1578036613/screenshot/Screenshot_31_fzly4z.png)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+![Chart](https://res.cloudinary.com/iyansrcloud/image/upload/v1578036612/screenshot/Screenshot_28_jitlgo.png)
 
-### Making a Progressive Web App
+![History](https://res.cloudinary.com/iyansrcloud/image/upload/v1578036612/screenshot/Screenshot_29_jats6e.png)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-### Advanced Configuration
+---
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Copyright © 2020 by I Putu Saputrayana (Iyan Saputra)
