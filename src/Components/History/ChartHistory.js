@@ -1,55 +1,64 @@
 import React, { useState, useEffect } from 'react'
-import Chart from 'react-apexcharts'
 import { Layout, Row, Col, Card } from 'antd'
 import moment from 'moment'
 import Axios from 'axios'
+import { BarChart } from 'reaviz'
 import convertToRupiah from '../../utils/rupiah'
 
-let apiBaseUrl = 'https://intense-inlet-23820.herokuapp.com/api'
+let apiBaseUrl
+
+if (process.env.NODE_ENV === 'development') {
+	apiBaseUrl = process.env.REACT_APP_BASE_API_URL
+} else {
+	apiBaseUrl = process.env.BASE_API_URL
+}
+
 const ChartHistory = () => {
 	const dateNow = moment().format('DD MMMM YYYY')
 
-	const [dates, setDates] = useState([])
-	const [responseData, setResponseData] = useState([])
-	const [series, setSeries] = useState([])
 	const [totalIncome, setTotalIncome] = useState(0)
 	const [todayIncome, setTodayIncome] = useState(0)
 	const [totalOrder, setTotalOrder] = useState(0)
-
-	const getDates = () => {
-		const date = new Date()
-		let Dates = []
-
-		for (let i = 0; i < 7; i++) {
-			let tempDate = new Date()
-			tempDate.setDate(date.getDate() - i)
-			let str = tempDate
-			Dates.push(moment(str).format('DD MMMM YYYY'))
-		}
-		setDates(Dates.reverse())
-		console.log(Dates)
-	}
-
-	useEffect(() => {
-		getDates()
-		//eslint-disable-next-line
-	}, [])
+	const [chartData, setChartData] = useState([
+		{
+			key: moment().format('DD MMMM YYYY'),
+			data: 0,
+		},
+	])
 
 	const getChart = async () => {
 		try {
 			const response = await Axios.get(`${apiBaseUrl}/checkout/chart`)
 
-			const data = response.data.map(d => d.total)
+			const date = new Date()
+			let Dates = []
+
+			for (let i = 0; i < 7; i++) {
+				let tempDate = new Date()
+				tempDate.setDate(date.getDate() - i)
+				let str = tempDate
+				Dates.push(moment(str).format('DD MMMM YYYY'))
+			}
+
+			console.log(Dates)
+
+			const tempDate = Dates.map((date, index) => {
+				return {
+					key: date,
+					data:
+						date === response.data[index].createdAt
+							? response.data[index].total
+							: 0,
+				}
+			})
+
+			console.log(tempDate)
+			setChartData(tempDate.reverse())
 
 			setTotalIncome(response.data.reduce((a, b) => a + b.total, 0))
 			setTodayIncome(
 				response.data.filter(val => val.createdAt === dateNow)[0].total
 			)
-
-			setResponseData(data)
-			console.log(response.data)
-
-			setSeries(data)
 		} catch (error) {
 			console.log(error)
 		}
@@ -100,30 +109,8 @@ const ChartHistory = () => {
 				</Col>
 			</Row>
 
-			<div className='mixed-chart' style={{ marginTop: 80 }}>
-				<Chart
-					options={{
-						chart: {
-							id: 'basic-bar',
-						},
-						xaxis: {
-							categories: dates
-								.filter(
-									date => !responseData.find(serie => date === serie.createdAt)
-								)
-								.reverse(),
-						},
-					}}
-					series={[
-						{
-							name: 'Total',
-							data: series,
-						},
-					]}
-					type='line'
-					width='100%'
-					height='400'
-				/>
+			<div style={{ marginTop: 80, minWidth: '100vh' }}>
+				<BarChart height={400} width={1300} data={chartData} />
 			</div>
 		</Layout>
 	)
