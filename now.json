@@ -1,6 +1,6 @@
 {
   "env": {
-    "BASE_API_URL": "@environment-base-api-url",
-    "NODE_ENV": "@environment-node_env"
+    "BASE_API_URL": "base-api-url",
+    "NODE_ENV": "node_env"
   }
 }
