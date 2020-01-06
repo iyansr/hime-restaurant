@@ -3,7 +3,13 @@ import HistoryReducer from './historyReducer'
 import HistoryContext from './historyContext'
 import Axios from 'axios'
 
-let apiBaseUrl = 'https://intense-inlet-23820.herokuapp.com/api'
+let apiBaseUrl
+
+if (process.env.NODE_ENV === 'development') {
+	apiBaseUrl = process.env.REACT_APP_BASE_API_URL
+} else {
+	apiBaseUrl = process.env.BASE_API_URL
+}
 
 const HistoryState = props => {
 	const initialState = {
