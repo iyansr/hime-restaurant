@@ -5,13 +5,7 @@ import Axios from 'axios'
 import { BarChart } from 'reaviz'
 import convertToRupiah from '../../utils/rupiah'
 
-let apiBaseUrl
-
-if (process.env.NODE_ENV === 'development') {
-	apiBaseUrl = process.env.REACT_APP_BASE_API_URL
-} else {
-	apiBaseUrl = process.env.BASE_API_URL
-}
+let apiBaseUrl = 'https://intense-inlet-23820.herokuapp.com/api'
 
 const ChartHistory = () => {
 	const dateNow = moment().format('DD MMMM YYYY')

@@ -6,13 +6,8 @@ import Axios from 'axios'
 
 const date = new Date()
 
-let apiBaseUrl
+let apiBaseUrl = 'https://intense-inlet-23820.herokuapp.com/api'
 
-if (process.env.NODE_ENV !== 'production') {
-	apiBaseUrl = process.env.BASE_API_URL
-} else {
-	apiBaseUrl = process.env.REACT_APP_BASE_API_URL
-}
 const CheckOutState = props => {
 	const initialState = {
 		modalVisible: false,

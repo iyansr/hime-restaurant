@@ -3,13 +3,7 @@ import UserReducer from './userReducer'
 import UserContext from './userContext'
 import Axios from 'axios'
 
-let apiBaseUrl
-
-if (process.env.NODE_ENV !== 'production') {
-	apiBaseUrl = process.env.BASE_API_URL
-} else {
-	apiBaseUrl = process.env.REACT_APP_BASE_API_URL
-}
+let apiBaseUrl = 'https://intense-inlet-23820.herokuapp.com/api'
 
 const UserState = props => {
 	const initialState = {
