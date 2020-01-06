@@ -6,10 +6,10 @@ import axios from 'axios'
 
 let apiBaseUrl
 
-if (process.env.NODE_ENV === 'development') {
-	apiBaseUrl = process.env.REACT_APP_BASE_API_URL
-} else {
+if (process.env.NODE_ENV !== 'production') {
 	apiBaseUrl = process.env.BASE_API_URL
+} else {
+	apiBaseUrl = process.env.REACT_APP_BASE_API_URL
 }
 
 const FoodState = props => {
