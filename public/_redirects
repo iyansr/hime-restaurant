@@ -1,1 +1,7 @@
 /*    /index.html   200
+
+# *** Warning! Your custom domain is not using HTTPS yet ***
+# These rules will change if you change your site’s custom domains or HTTPS settings
+
+# Redirect default Netlify subdomain to primary domain
+http://hardcore-austin-a03ef7.netlify.com/* http://www.pos.iyansr.id/:splat 301!
